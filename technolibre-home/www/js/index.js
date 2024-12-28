@@ -31,30 +31,25 @@ function onDeviceReady() {
 document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
-  // Lire l'URL de la page web depuis le fichier config.json
-  fetch('config.json')
-    .then(response => response.json())
-    .then(config => {
-      const webpageUrl = config.webpageUrl;
+  const webpageUrl = config.webpageUrl;
+  
+  // Ajouter un écouteur d'événement à un bouton (ou tout autre élément)
+  document.getElementById('monBouton').addEventListener('click', function() {
+    // Rediriger vers la page web
+    window.open(webpageUrl, '_system');
+  });
 
-      // Ajouter un écouteur d'événement à un bouton (ou tout autre élément)
-      document.getElementById('monBouton').addEventListener('click', function() {
-        // Rediriger vers la page web
-        window.open(webpageUrl, '_system');
-      });
-
-      // Ajout de contact lors du clic du bouton associé
-      document.getElementById('btn-ajout-contact').addEventListener('click', function () {
-        // Demander à l'utilisateur s'il souhaite réellement ajouter le contact.
-        // Si l'utilisateur confirme, ajouter le contact à la liste.
-        navigator.notification.confirm(
-          "Ajouter le contact?",
-          onAjouterContactConfirm,
-          "Confirmation requise",
-          ["Ok", "Annuler"]
-        );
-      });
-    });
+  // Ajout de contact lors du clic du bouton associé
+  document.getElementById('btn-ajout-contact').addEventListener('click', function () {
+    // Demander à l'utilisateur s'il souhaite réellement ajouter le contact.
+    // Si l'utilisateur confirme, ajouter le contact à la liste.
+    navigator.notification.confirm(
+      "Ajouter le contact?",
+      onAjouterContactConfirm,
+      "Confirmation requise",
+      ["Ok", "Annuler"]
+    );
+  });
 }
 
 function onAjouterContactConfirm(buttonIndex) {
